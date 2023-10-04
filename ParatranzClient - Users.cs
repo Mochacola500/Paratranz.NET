@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Flurl;
+using System.Text.Json.Nodes;
 
 namespace ParatranzAPI
 {
@@ -13,10 +14,16 @@ namespace ParatranzAPI
             return m_Client.GetFromJsonAsync<ParatranzMember>(url, token);
         }
 
-        public async Task<ParatranzMember?> PutMemberAsync(int userId, ParatranzMemberRequest request, CancellationToken token = default)
+        public async Task<ParatranzMember?> PutMemberAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
         {
             var url = "users/".AppendPathSegments(userId);
-            var response = await m_Client.PutAsJsonAsync(url, request, token);
+            var json = new JsonObject
+            {
+                ["nickname"] = nickname,
+                ["bio"] = bio,
+                ["avatar"] = avatar,
+            };
+            var response = await m_Client.PutAsJsonAsync(url, json, token);
 
             return await response.Content.ReadFromJsonAsync<ParatranzMember>(options: null, token);
         }
@@ -39,12 +46,5 @@ namespace ParatranzAPI
         public int reviewed { get; set; }
         public int commented { get; set; }
         public int points { get; set; }
-    }
-
-    public class ParatranzMemberRequest
-    {
-        public string? nickname { get; set; }
-        public string? bio { get; set; }
-        public string? avatar { get; set; }
     }
 }

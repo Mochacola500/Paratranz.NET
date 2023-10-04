@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Flurl;
+using System.Text.Json.Nodes;
 
 namespace ParatranzAPI
 {
@@ -16,9 +17,14 @@ namespace ParatranzAPI
         public async Task<ParatranzFileInfo?> PostFileAsync(int projectId, string file, string path, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegments(projectId, "files");
+            var json = new JsonObject
+            {
+                ["file"] = file,
+                ["path"] = path,
+            };
 
-            var response = await m_Client.PostAsJsonAsync(url, new ParatranzFileRequest(){ file = file, path = path }, token);
-            return await response.Content.ReadFromJsonAsync<ParatranzFileInfo>(options:null, token);
+            var response = await m_Client.PostAsJsonAsync(url, json, token);
+            return await response.Content.ReadFromJsonAsync<ParatranzFileInfo>(options: null, token);
         }
 
         public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
@@ -51,11 +57,16 @@ namespace ParatranzAPI
             return await response.Content.ReadAsStreamAsync(token);
         }
 
-        public async Task<ParatranzFile?> PostFileAsync(int projectId, int fileId, ParatranzFileRequest request, CancellationToken token = default)
+        public async Task<ParatranzFile?> PostFileAsync(int projectId, int fileId, string file, string path, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegments(projectId, "files", fileId, "translation");
+            var json = new JsonObject
+            {
+                ["file"] = file,
+                ["path"] = path,
+            };
 
-            var response = await m_Client.PostAsJsonAsync(url, request, token);
+            var response = await m_Client.PostAsJsonAsync(url, json, token);
             return await response.Content.ReadFromJsonAsync<ParatranzFile>(options: null, token);
         }
     }
@@ -100,11 +111,5 @@ namespace ParatranzAPI
         public string? hash { get; set; }
         public bool force { get; set; }
         public bool incremental { get; set; }
-    }
-
-    public class ParatranzFileRequest
-    {
-        public string? file { get; set; }
-        public string? path { get; set; }
     }
 }
