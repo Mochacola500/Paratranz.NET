@@ -2,7 +2,7 @@
 
 namespace ParatranzAPI
 {
-    public class ParatranzUser
+    public record ParatranzUser
     {
         public int Id { get; init; }
         public DateTime? CreatedAt { get; init; }
