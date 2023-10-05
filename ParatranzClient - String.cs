@@ -55,38 +55,4 @@ namespace ParatranzAPI
             return GetAsync<ParatranzStringPage>(url, token);
         }
     }
-
-    public class ParatranzStringPage
-    {
-        public int page { get; set; }
-        public int pageSize { get; set; }
-        public int rowCount { get; set; }
-        public ParatranzString[]? result { get; set; }
-    }
-
-    public class ParatranzString
-    {
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? updatedAt { get; set; }
-        public string? key { get; set; }
-        public string? original { get; set; }
-        public string? translation { get; set; }
-        public int file { get; set; }
-        public int stage { get; set; }
-        public int project { get; set; }
-        public int uid { get; set; }
-        public string? context { get; set; }
-        public int words { get; set; }
-    }
-
-    public class ParatranzStringRequest
-    {
-        public string? key { get; set; }
-        public string? original { get; set; }
-        public string? translation { get; set; }
-        public int file { get; set; }
-        public int stage { get; set; }
-        public string? context { get; set; }
-    }
 }

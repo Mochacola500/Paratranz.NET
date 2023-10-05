@@ -64,46 +64,4 @@ namespace ParatranzAPI
             return DownloadAsync(url, token);
         }
     }
-
-    public class ParatranzFilePage
-    {
-        public ParatranzFile? file { get; set; }
-        public ParatranzFileRevision? revision { get; set; }
-    }
-
-    public class ParatranzFile
-    {
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? updatedAt { get; set; }
-        public string? name { get; set; }
-        public int project { get; set; }
-        public string? format { get; set; }
-        public int total { get; set; }
-        public int translated { get; set; }
-        public int disputed { get; set; }
-        public int @checked { get; set; }
-        public int reviewed { get; set; }
-        public int hidden { get; set; }
-        public int locked { get; set; }
-        public int words { get; set; }
-    }
-
-    public class ParatranzFileRevision
-    {
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? name { get; set; }
-        public string? filename { get; set; }
-        public string? type { get; set; }
-        public int file { get; set; }
-        public int uid { get; set; }
-        public int project { get; set; }
-        public int insert { get; set; }
-        public int update { get; set; }
-        public int remove { get; set; }
-        public string? hash { get; set; }
-        public bool force { get; set; }
-        public bool incremental { get; set; }
-    }
 }
