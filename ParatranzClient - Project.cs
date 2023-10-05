@@ -8,39 +8,40 @@ namespace ParatranzAPI
     {
         public Task<ParatranzProjectPage?> GetProjectPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
         {
-            var uri = "projects/".SetQueryParams(new { page = page, pageSize = pageSize });
+            var query = new
+            {
+                page = page,
+                pageSize = pageSize,
+            };
+            var url = "projects".SetQueryParams(query);
 
-            return m_Client.GetFromJsonAsync<ParatranzProjectPage>(uri, token);
-        }
-
-        public async Task<ParatranzProject?> GetProjectAsync(ParatranzProjectRequest request, CancellationToken token = default)
-        {
-            var url = "projects/";
-            var response = await m_Client.PostAsJsonAsync(url, request, token);
-
-            return await response.Content.ReadFromJsonAsync<ParatranzProject>(options: null, token);
+            return GetAsync<ParatranzProjectPage>(url, token);
         }
 
         public Task<ParatranzProject?> GetProjectAsync(int projectId, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegment(projectId);
 
-            return m_Client.GetFromJsonAsync<ParatranzProject>(url, token);
+            return GetAsync<ParatranzProject>(url, token);
         }
 
-        public async Task<ParatranzProject?> PutProjectAsync(int projectId, ParatranzProjectRequest request, CancellationToken token = default)
+        public Task<ParatranzProject?> GetProjectAsync(ParatranzProjectRequest request, CancellationToken token = default)
+        {
+            return PostAsync<ParatranzProjectRequest, ParatranzProject>("projects", request, token);
+        }
+
+        public Task<ParatranzProject?> CreateProjectAsync(int projectId, ParatranzProjectRequest request, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegment(projectId);
-            var response = await m_Client.PutAsJsonAsync(url, request, token);
-
-            return await response.Content.ReadFromJsonAsync<ParatranzProject>(options:null, token);
+            
+            return PutAsync<ParatranzProjectRequest, ParatranzProject>(url, request, token);
         }
 
         public void DeleteProjectAsync(int projectId, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegment(projectId);
 
-            m_Client.DeleteAsync(url, token);
+            DeleteAsync(url, token);
         }
     }
 

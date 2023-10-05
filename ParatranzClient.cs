@@ -56,7 +56,7 @@ namespace ParatranzAPI
             return await res.Content.ReadFromJsonAsync<TReturn>(options: null, token);
         }
 
-        protected void DeleteAsync<TReturn>(Url relativeUrl, CancellationToken token)
+        protected void DeleteAsync(Url relativeUrl, CancellationToken token)
         {
             m_Client.DeleteAsync(relativeUrl, token);
         }
