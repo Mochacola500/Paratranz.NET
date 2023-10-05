@@ -12,7 +12,7 @@ namespace ParatranzAPI
             return GetAsync<ParatranzUser>(url, token);
         }
 
-        public Task<ParatranzUser?> ChangeUserInfoAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
+        public Task<ParatranzUser?> UpdateUserInfoAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
         {
             var url = "users".AppendPathSegments(userId);
             var json = new JsonObject
