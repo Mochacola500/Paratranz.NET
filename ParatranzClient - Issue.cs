@@ -30,11 +30,11 @@ namespace ParatranzAPI
             return PostAsync<JsonObject, ParatranzDiscussion>(url, json, token);
         }
 
-        public void DeleteIssueAsync(int projectId, int issueId, CancellationToken token = default)
+        public Task<bool> DeleteIssueAsync(int projectId, int issueId, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "issues", issueId);
 
-            DeleteAsync(url, token);
+            return DeleteAsync(url, token);
         }
     }
 

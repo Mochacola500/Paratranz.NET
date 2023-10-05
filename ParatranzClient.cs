@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Net;
 using Flurl;
 
 namespace ParatranzAPI
@@ -64,9 +65,12 @@ namespace ParatranzAPI
             return await res.Content.ReadAsStreamAsync(token);
         }
 
-        protected void DeleteAsync(Url relativeUrl, CancellationToken token)
+        protected async Task<bool> DeleteAsync(Url relativeUrl, CancellationToken token)
         {
-            m_Client.DeleteAsync(relativeUrl, token);
+            var res = await m_Client.DeleteAsync(relativeUrl, token);
+            res.EnsureSuccessStatusCode();
+
+            return res.StatusCode == HttpStatusCode.OK;
         }
 
         public void Dispose()

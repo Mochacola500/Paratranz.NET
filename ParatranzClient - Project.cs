@@ -11,11 +11,11 @@ namespace ParatranzAPI
             return PutAsync<ParatranzProjectRequest, ParatranzProject>(url, request, token);
         }
 
-        public void DeleteProjectAsync(int projectId, CancellationToken token = default)
+        public Task<bool> DeleteProjectAsync(int projectId, CancellationToken token = default)
         {
             var url = "projects/".AppendPathSegment(projectId);
 
-            DeleteAsync(url, token);
+            return DeleteAsync(url, token);
         }
 
         public Task<ParatranzProject?> GetProjectAsync(int projectId, CancellationToken token = default)

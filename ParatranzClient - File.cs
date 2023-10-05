@@ -50,11 +50,11 @@ namespace ParatranzAPI
             return PostAsync<JsonObject, ParatranzFilePage>(url, json, token);
         }
 
-        public void DeleteFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<bool> DeleteFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
 
-            DeleteAsync(url, token);
+            return DeleteAsync(url, token);
         }
 
         public Task<Stream?> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
