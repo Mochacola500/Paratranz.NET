@@ -5,7 +5,7 @@ namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzIssue?> GetIssueAsync(int projectId, IssuesStatus status, CancellationToken token = default)
+        public Task<ParatranzIssuePage?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token = default)
         {
             var query = new
             {
@@ -15,10 +15,10 @@ namespace ParatranzAPI
                 .AppendPathSegments(projectId, "issues")
                 .SetQueryParams(query);
 
-            return GetAsync<ParatranzIssue>(url, token);
+            return GetAsync<ParatranzIssuePage>(url, token);
         }
 
-        public Task<ParatranzDiscussion?> GetDiscussionAsync(int projectId, string title, string content, CancellationToken token = default)
+        public Task<ParatranzIssue?> CreateIssueAsync(int projectId, string title, string content, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "issues");
             var json = new JsonObject
@@ -27,7 +27,21 @@ namespace ParatranzAPI
                 ["content"] = content
             };
 
-            return PostAsync<JsonObject, ParatranzDiscussion>(url, json, token);
+            return PostAsync<JsonObject, ParatranzIssue>(url, json, token);
+        }
+
+        public Task<ParatranzIssue?> UpdateIssueAsync(int projectId, string issueId, string title, string content, IssuesStatus status, CancellationToken token = default)
+        {
+            var status_int = (int)status;
+            var url = "projects".AppendPathSegments(projectId, "issues", issueId);
+            var json = new JsonObject
+            {
+                ["title"] = title,
+                ["content"] = content,
+                ["status"] = status_int
+            };
+
+            return PutAsync<JsonObject, ParatranzIssue>(url, json, token);
         }
 
         public Task<bool> DeleteIssueAsync(int projectId, int issueId, CancellationToken token = default)
@@ -36,41 +50,5 @@ namespace ParatranzAPI
 
             return DeleteAsync(url, token);
         }
-    }
-
-    public enum IssuesStatus
-    {
-        Discussion = 0,
-        Closed = 1,
-    }
-
-    public class ParatranzDiscussion
-    {
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? updatedAt { get; set; }
-        public int project { get; set; }
-        public int uid { get; set; }
-        public int parent { get; set; }
-        public string? title { get; set; }
-        public string? content { get; set; }
-        public string? html { get; set; }
-        public int status { get; set; }
-        public int lastEdit { get; set; }
-        public int[]? refer { get; set; }
-        public int[]? subscribers { get; set; }
-        public int childrenCount { get; set; }
-        public string? repliedAt { get; set; }
-    }
-
-    public class ParatranzIssue
-    {
-        public int page { get; set; }
-        public int pageSize { get; set; }
-        public int rowCount { get; set; }
-        public int pageCount { get; set; }
-        public int closedCount { get; set; }
-        public int openCount { get; set; }
-        public ParatranzDiscussion[]? results { get; set; }
     }
 }
