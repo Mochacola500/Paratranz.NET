@@ -12,7 +12,7 @@ namespace ParatranzAPI
             return GetAsync<ParatranzUser>(url, token);
         }
 
-        public Task<ParatranzUser?> UpdateUserInfoAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
+        public Task<ParatranzUser?> UpdateUserAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
         {
             var url = "users".AppendPathSegments(userId);
             var json = new JsonObject
@@ -24,24 +24,39 @@ namespace ParatranzAPI
             
             return PutAsync<JsonObject, ParatranzUser>(url, json, token);
         }
-    }
 
-    public class ParatranzUser
-    {
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? updateAt { get; set; }
-        public string? lastVisit { get; set; }
-        public string? username { get; set; }
-        public string? nickname { get; set; }
-        public string? bio { get; set; }
-        public string? avatar { get; set; }
-        public string? email { get; set; }
-        public int credit { get; set; }
-        public int translated { get; set; }
-        public int edited { get; set; }
-        public int reviewed { get; set; }
-        public int commented { get; set; }
-        public int points { get; set; }
+        public Task UpdateNickNameAsync(ParatranzUser user, string nickname, CancellationToken token = default)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            if (user.Bio == null)
+            {
+                throw new ArgumentNullException(nameof(user.Bio));
+            }
+            if (user.Avatar == null)
+            {
+                throw new ArgumentNullException(nameof(user.Avatar));
+            }
+            return UpdateUserAsync(user.Id, nickname, user.Bio, user.Avatar.AbsoluteUri, token);
+        }
+
+        public Task UpdateBioAsync(ParatranzUser user, string bio, CancellationToken token = default)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            if (user.NickName == null)
+            {
+                throw new ArgumentNullException(nameof(user.NickName));
+            }
+            if (user.Avatar == null)
+            {
+                throw new ArgumentNullException(nameof(user.Avatar));
+            }
+            return UpdateUserAsync(user.Id, user.NickName, bio, user.Avatar.AbsoluteUri, token);
+        }
     }
 }
