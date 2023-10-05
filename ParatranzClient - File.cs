@@ -57,7 +57,7 @@ namespace ParatranzAPI
             return DeleteAsync(url, token);
         }
 
-        public Task<Stream?> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<Stream> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId, "translation");
 
