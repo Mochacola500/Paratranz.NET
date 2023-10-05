@@ -15,7 +15,7 @@ namespace ParatranzAPI
         {
             var url = "projects".AppendPathSegments(projectId, "artifacts");
 
-            return PostAsync<object, ParatranzBuildInfo>(url, null, token);
+            return PostAsync<object, ParatranzBuildInfo>(url, new { }, token);
         }
 
         public Task<Stream> DownloadArtifactAsync(int projectId, CancellationToken token = default)
