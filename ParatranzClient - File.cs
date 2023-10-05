@@ -1,77 +1,71 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Flurl;
+﻿using Flurl;
 using System.Text.Json.Nodes;
 
 namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzFile[]?> GetFileArrayAsync(int projectId, CancellationToken token = default)
+        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files");
+            var url = "projects".AppendPathSegments(projectId, "files", fileId);
 
-            return m_Client.GetFromJsonAsync<ParatranzFile[]>(url, token);
+            return GetAsync<ParatranzFile>(url, token);
         }
 
-        public async Task<ParatranzFileInfo?> PostFileAsync(int projectId, string file, string path, CancellationToken token = default)
+        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files");
+            var url = "projects".AppendPathSegments(projectId, "files", fileId);
+
+            return PostAsync<string, ParatranzFile>(url, file, token);
+        }
+
+        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, string file, string path, CancellationToken token = default)
+        {
+            var url = "projects".AppendPathSegments(projectId, "files", fileId, "translation");
             var json = new JsonObject
             {
                 ["file"] = file,
                 ["path"] = path,
             };
 
-            var response = await m_Client.PostAsJsonAsync(url, json, token);
-            return await response.Content.ReadFromJsonAsync<ParatranzFileInfo>(options: null, token);
+            return PostAsync<JsonObject, ParatranzFile>(url, json, token);
         }
 
-        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files", fileId);
+            var url = "projects".AppendPathSegments(projectId, "files");
 
-            return m_Client.GetFromJsonAsync<ParatranzFile>(url, token);
+            return GetAsync<ParatranzFile[]>(url, token);
         }
 
-        public async Task<ParatranzFile?> PostFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
+        public Task<ParatranzFilePage?> GetFilePageAsync(int projectId, string file, string path, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files", fileId);
+            var url = "projects".AppendPathSegments(projectId, "files");
+            var json = new JsonObject
+            {
+                ["file"] = file,
+                ["path"] = path,
+            };
 
-            var response = await m_Client.PostAsJsonAsync(url, file, token);
-            return await response.Content.ReadFromJsonAsync<ParatranzFile>(options: null, token);
+            return PostAsync<JsonObject, ParatranzFilePage>(url, json, token);
         }
 
         public void DeleteFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files", fileId);
+            var url = "projects".AppendPathSegments(projectId, "files", fileId);
 
-            m_Client.DeleteAsync(url, token);
+            DeleteAsync(url, token);
         }
 
-        public async Task<Stream?> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<Stream?> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "files", fileId, "translation");
+            var url = "projects".AppendPathSegments(projectId, "files", fileId, "translation");
 
-            var response = await m_Client.GetAsync(url, token);
-            return await response.Content.ReadAsStreamAsync(token);
-        }
-
-        public async Task<ParatranzFile?> PostFileAsync(int projectId, int fileId, string file, string path, CancellationToken token = default)
-        {
-            var url = "projects/".AppendPathSegments(projectId, "files", fileId, "translation");
-            var json = new JsonObject
-            {
-                ["file"] = file,
-                ["path"] = path,
-            };
-
-            var response = await m_Client.PostAsJsonAsync(url, json, token);
-            return await response.Content.ReadFromJsonAsync<ParatranzFile>(options: null, token);
+            return DownloadAsync(url, token);
         }
     }
 
-    public class ParatranzFileInfo
+    public class ParatranzFilePage
     {
         public ParatranzFile? file { get; set; }
         public ParatranzFileRevision? revision { get; set; }

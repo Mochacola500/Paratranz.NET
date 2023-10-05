@@ -1,55 +1,62 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Flurl;
+﻿using Flurl;
 
 namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzStringList?> GetStringListAsync(int projectId, int file, int stage, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzString?> AddStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
         {
-            var url = "projects/"
-                .AppendPathSegments(projectId, "strings")
-                .SetQueryParams(new { file = file, stage = stage, page = page, pageSize = pageSize });
+            var url = "projects".AppendPathSegments(projectId, "strings", stringId);
 
-            return m_Client.GetFromJsonAsync<ParatranzStringList>(url, token);
-        }
-
-        public async Task<ParatranzString?> PostStringAsync(int projectId, ParatranzStringRequest request, int page = 1, int pageSize = 50, CancellationToken token = default)
-        {
-            var url = "projects/"
-                .AppendPathSegments(projectId, "strings")
-                .SetQueryParams(new {page = page, pageSize = pageSize});
-
-            var response = await m_Client.PostAsJsonAsync(url, request, token);
-
-            return await response.Content.ReadFromJsonAsync<ParatranzString>(options: null, token);
-        }
-
-        public Task<ParatranzString?> GetStringAsync(int projectId, int stringId, CancellationToken token = default)
-        {
-            var url = "projects/".AppendPathSegments(projectId, "strings", stringId);
-
-            return m_Client.GetFromJsonAsync<ParatranzString>(url, token);
-        }
-
-        public async Task<ParatranzString?> PutStringAsync(int projectId, int stringId, ParatranzStringRequest request, CancellationToken token = default)
-        {
-            var url = "projects/".AppendPathSegments(projectId, "strings", stringId);
-            var response = await m_Client.PutAsJsonAsync(url, request, token);
-
-            return await response.Content.ReadFromJsonAsync<ParatranzString>(options:null, token);
+            return PutAsync<ParatranzStringRequest, ParatranzString>(url, body, token);
         }
 
         public void DeleteStringAsync(int projectId, int stringId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "strings", stringId);
+            var url = "projects".AppendPathSegments(projectId, "strings", stringId);
 
-            m_Client.DeleteAsync(url, token);
+            DeleteAsync(url, token);
+        }
+
+        public Task<ParatranzString?> GetStringAsync(int projectId, int stringId, CancellationToken token = default)
+        {
+            var url = "projects".AppendPathSegments(projectId, "strings", stringId);
+
+            return GetAsync<ParatranzString>(url, token);
+        }
+
+        public Task<ParatranzString?> GetStringAsync(int projectId, ParatranzStringRequest body, int page = 1, int pageSize = 50, CancellationToken token = default)
+        {
+            var query = new
+            {
+                page = page,
+                pageSize = pageSize
+            };
+            var url = "projects"
+                .AppendPathSegments(projectId, "strings")
+                .SetQueryParams(query);
+
+            return PostAsync<ParatranzStringRequest, ParatranzString>(url, body, token);
+        }
+
+        public Task<ParatranzStringPage?> GetStringPageAsync(int projectId, int file, int stage, int page = 1, int pageSize = 50, CancellationToken token = default)
+        {
+            var query = new
+            {
+                file = file,
+                stage = stage,
+                page = page,
+                pageSize = pageSize
+            };
+            var url = "projects"
+                .AppendPathSegments(projectId, "strings")
+                .SetQueryParams(query);
+
+            return GetAsync<ParatranzStringPage>(url, token);
         }
     }
 
-    public class ParatranzStringList
+    public class ParatranzStringPage
     {
         public int page { get; set; }
         public int pageSize { get; set; }

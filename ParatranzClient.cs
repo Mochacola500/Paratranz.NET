@@ -56,6 +56,14 @@ namespace ParatranzAPI
             return await res.Content.ReadFromJsonAsync<TReturn>(options: null, token);
         }
 
+        protected async Task<Stream?> DownloadAsync(Url relativeUrl, CancellationToken token)
+        {
+            var res = await m_Client.GetAsync(relativeUrl, token);
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content.ReadAsStreamAsync(token);
+        }
+
         protected void DeleteAsync(Url relativeUrl, CancellationToken token)
         {
             m_Client.DeleteAsync(relativeUrl, token);

@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Flurl;
+﻿using Flurl;
 using System.Text.Json.Nodes;
 
 namespace ParatranzAPI
@@ -9,31 +7,34 @@ namespace ParatranzAPI
     {
         public Task<ParatranzIssue?> GetIssueAsync(int projectId, IssuesStatus status, CancellationToken token = default)
         {
-            var url = "projects/"
+            var query = new
+            {
+                status = status,
+            };
+            var url = "projects"
                 .AppendPathSegments(projectId, "issues")
-                .SetQueryParams(new { status = (int)status });
+                .SetQueryParams(query);
 
-            return m_Client.GetFromJsonAsync<ParatranzIssue>(url, token);
+            return GetAsync<ParatranzIssue>(url, token);
         }
 
-        public async Task<ParatranzIssue.Discussion?> PostIssueAsync(int projectId, string title, string content, CancellationToken token = default)
+        public Task<ParatranzDiscussion?> GetDiscussionAsync(int projectId, string title, string content, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "issues");
+            var url = "projects".AppendPathSegments(projectId, "issues");
             var json = new JsonObject
             {
                 ["title"] = title,
                 ["content"] = content
             };
 
-            var response = await m_Client.PostAsJsonAsync(url, json, token);
-            return await response.Content.ReadFromJsonAsync<ParatranzIssue.Discussion>(options: null, token);
+            return PostAsync<JsonObject, ParatranzDiscussion>(url, json, token);
         }
 
         public void DeleteIssueAsync(int projectId, int issueId, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegments(projectId, "issues", issueId);
+            var url = "projects".AppendPathSegments(projectId, "issues", issueId);
 
-            m_Client.DeleteAsync(url, token);
+            DeleteAsync(url, token);
         }
     }
 
@@ -43,33 +44,33 @@ namespace ParatranzAPI
         Closed = 1,
     }
 
+    public class ParatranzDiscussion
+    {
+        public int id { get; set; }
+        public string? createdAt { get; set; }
+        public string? updatedAt { get; set; }
+        public int project { get; set; }
+        public int uid { get; set; }
+        public int parent { get; set; }
+        public string? title { get; set; }
+        public string? content { get; set; }
+        public string? html { get; set; }
+        public int status { get; set; }
+        public int lastEdit { get; set; }
+        public int[]? refer { get; set; }
+        public int[]? subscribers { get; set; }
+        public int childrenCount { get; set; }
+        public string? repliedAt { get; set; }
+    }
+
     public class ParatranzIssue
     {
-        public class Discussion
-        {
-            public int id { get; set; }
-            public string? createdAt { get; set; }
-            public string? updatedAt { get; set; }
-            public int project { get; set; }
-            public int uid { get; set; }
-            public int parent { get; set; }
-            public string? title { get; set; }
-            public string? content { get; set; }
-            public string? html { get; set; }
-            public int status { get; set; }
-            public int lastEdit { get; set; }
-            public int[]? refer { get; set; }
-            public int[]? subscribers { get; set; }
-            public int childrenCount { get; set; }
-            public string? repliedAt { get; set; }
-        }
-
         public int page { get; set; }
         public int pageSize { get; set; }
         public int rowCount { get; set; }
         public int pageCount { get; set; }
         public int closedCount { get; set; }
         public int openCount { get; set; }
-        public Discussion[]? results { get; set; }
+        public ParatranzDiscussion[]? results { get; set; }
     }
 }

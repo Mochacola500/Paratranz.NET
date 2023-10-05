@@ -1,33 +1,49 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using Flurl;
 
 namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzLog?> GetHistoryAsync(int project, int uid, int tid, HistoryType type, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzHistory?> GetHistoryAsync(int projectId, int termId, CancellationToken token = default)
         {
-            var url = "history/".SetQueryParams(new {project = project, uid = uid, tid = tid, type = type.ToString(), page = page, pageSize = pageSize});
+            var url = "projects".AppendPathSegments(projectId, "terms", termId, "history");
 
-            return m_Client.GetFromJsonAsync<ParatranzLog>(url, token);
+            return m_Client.GetFromJsonAsync<ParatranzHistory>(url, token);
         }
 
-        public Task<ParatranzLog?> GetHistoryAsync(int projectId, int file, HistoryType type, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzHistory?> GetHistoryAsync(int projectId, int file, HistoryType type, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
-            var url = "projects/"
+            var type_str = type.ToString();
+            var query = new
+            {
+                file = file,
+                type = type_str,
+                page = page,
+                pageSize = pageSize
+            };
+            var url = "projects"
                 .AppendPathSegments(projectId, "files", "revisions")
-                .SetQueryParams(new { file = file, type = type.ToString(), page = page, pageSize = pageSize });
+                .SetQueryParams(query);
 
-            return m_Client.GetFromJsonAsync<ParatranzLog>(url, token);
+            return GetAsync<ParatranzHistory>(url, token);
         }
 
-        public Task<ParatranzLog?> GetHistoryAsync(int projectId, int termId, CancellationToken token = default)
+        public Task<ParatranzHistoryPage?> GetHistoryPageAsync(int project, int uid, int tid, HistoryType type, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
-            var url = "projects/"
-                .AppendPathSegments(projectId, "terms", termId, "history");
+            var type_str = type.ToString();
+            var query = new
+            {
+                project = project,
+                uid = uid,
+                tid = tid,
+                type = type_str,
+                page = page,
+                pageSize = pageSize
+            };
+            var url = "history".SetQueryParams(query);
 
-            return m_Client.GetFromJsonAsync<ParatranzLog>(url, token);
+            return GetAsync<ParatranzHistoryPage>(url, token);
         }
     }
 
@@ -38,16 +54,16 @@ namespace ParatranzAPI
         comment,
     }
 
-    public class ParatranzHistory
+    public class ParatranzHistoryPage
     {
         public int page { get; set; }
         public int pageSize { get; set; }
         public int rowCount { get; set; }
         public int pageCount { get; set; }
-        public ParatranzLog[]? results { get; set; }
+        public ParatranzHistory[]? results { get; set; }
     }
 
-    public class ParatranzLog
+    public class ParatranzHistory
     {
         public class Target
         {

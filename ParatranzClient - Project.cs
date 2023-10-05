@@ -1,21 +1,21 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Flurl;
+﻿using Flurl;
 
 namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzProjectPage?> GetProjectPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzProject?> CreateProjectAsync(int projectId, ParatranzProjectRequest request, CancellationToken token = default)
         {
-            var query = new
-            {
-                page = page,
-                pageSize = pageSize,
-            };
-            var url = "projects".SetQueryParams(query);
+            var url = "projects/".AppendPathSegment(projectId);
 
-            return GetAsync<ParatranzProjectPage>(url, token);
+            return PutAsync<ParatranzProjectRequest, ParatranzProject>(url, request, token);
+        }
+
+        public void DeleteProjectAsync(int projectId, CancellationToken token = default)
+        {
+            var url = "projects/".AppendPathSegment(projectId);
+
+            DeleteAsync(url, token);
         }
 
         public Task<ParatranzProject?> GetProjectAsync(int projectId, CancellationToken token = default)
@@ -30,18 +30,16 @@ namespace ParatranzAPI
             return PostAsync<ParatranzProjectRequest, ParatranzProject>("projects", request, token);
         }
 
-        public Task<ParatranzProject?> CreateProjectAsync(int projectId, ParatranzProjectRequest request, CancellationToken token = default)
+        public Task<ParatranzProjectPage?> GetProjectPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
         {
-            var url = "projects/".AppendPathSegment(projectId);
-            
-            return PutAsync<ParatranzProjectRequest, ParatranzProject>(url, request, token);
-        }
+            var query = new
+            {
+                page = page,
+                pageSize = pageSize,
+            };
+            var url = "projects".SetQueryParams(query);
 
-        public void DeleteProjectAsync(int projectId, CancellationToken token = default)
-        {
-            var url = "projects/".AppendPathSegment(projectId);
-
-            DeleteAsync(url, token);
+            return GetAsync<ParatranzProjectPage>(url, token);
         }
     }
 
