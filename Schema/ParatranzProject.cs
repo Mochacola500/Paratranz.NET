@@ -1,96 +1,96 @@
 ﻿
 namespace ParatranzAPI
 {
-    public class ParatranzProjectPage
+    public record ParatranzProjectPage
     {
-        public int Page { get; set; }
-        public int PageCount { get; set; }
-        public int RowCount { get; set; }
-        public ParatranzProject[]? Results { get; set; }
+        public int Page { get; init; }
+        public int PageCount { get; init; }
+        public int RowCount { get; init; }
+        public ParatranzProject[]? Results { get; init; }
     }
 
-    public class ParatranzProject
+    public record ParatranzProject
     {
-        public class Format
+        public record FormatInfo
         {
-            public string? yml { get; set; }
-            public string? txt { get; set; }
+            public string? yml { get; init; }
+            public string? txt { get; init; }
         }
 
-        public class Extra
+        public record ExtraInfo
         {
-            public string? Link { get; set; }
-            public bool Chars { get; set; }
-            public bool IsMod { get; set; }
-            public string? Credit { get; set; }
-            public string[]? Titles { get; set; }
-            public string? Version { get; set; }
-            public string? Compatible { get; set; }
-            public string? CreditLink { get; set; }
-            public bool CustomTests { get; set; }
-            public string? PublishLink { get; set; }
-            public bool HasTranslation { get; set; }
-            public bool DisableBatchSave { get; set; }
+            public string? Link { get; init; }
+            public bool Chars { get; init; }
+            public bool IsMod { get; init; }
+            public string? Credit { get; init; }
+            public string[]? Titles { get; init; }
+            public string? Version { get; init; }
+            public string? Compatible { get; init; }
+            public string? CreditLink { get; init; }
+            public bool CustomTests { get; init; }
+            public string? PublishLink { get; init; }
+            public bool HasTranslation { get; init; }
+            public bool DisableBatchSave { get; init; }
         }
 
-        public class Stat
+        public record StatInfo
         {
-            public int Id { get; set; }
-            public string? deletedAt { get; set; }
-            public string? modifiedAt { get; set; }
-            public int total { get; set; }
-            public int translated { get; set; }
-            public int disputed { get; set; }
-            public int checkd { get; set; }
-            public int reviewed { get; set; }
-            public int hidden { get; set; }
-            public int locked { get; set; }
-            public int words { get; set; }
-            public int members { get; set; }
-            public float tp { get; set; }
-            public float cp { get; set; }
-            public float rp { get; set; }
+            public int Id { get; init; }
+            public DateTime? DeletedAt { get; init; }
+            public DateTime? ModifiedAt { get; init; }
+            public int Total { get; init; }
+            public int Translated { get; init; }
+            public int Disputed { get; init; }
+            public int Checkd { get; init; }
+            public int Reviewed { get; init; }
+            public int Hidden { get; init; }
+            public int Locked { get; init; }
+            public int Words { get; init; }
+            public int Members { get; init; }
+            public float tp { get; init; }
+            public float cp { get; init; }
+            public float rp { get; init; }
         }
 
-        public int id { get; set; }
-        public string? createdAt { get; set; }
-        public string? updatedAt { get; set; }
-        public int uid { get; set; }
-        public string? name { get; set; }
-        public string? logo { get; set; }
-        public string? desc { get; set; }
-        public string? source { get; set; }
-        public string? dest { get; set; }
-        public int members { get; set; }
-        public string? game { get; set; }
-        public string? license { get; set; }
-        public float activeLevel { get; set; }
-        public int stage { get; set; }
-        public int privacy { get; set; }
-        public int download { get; set; }
-        public int issueMode { get; set; }
-        public int reviewMode { get; set; }
-        public int joinMode { get; set; }
-        public Extra? extra { get; set; }
-        public Stat? stats { get; set; }
-        public string[]? relatedGames { get; set; }
-        public bool isPrivate { get; set; }
-        public string? gameName { get; set; }
-        public Format? formats { get; set; }
+        public int Id { get; init; }
+        public DateTime? CreatedAt { get; init; }
+        public DateTime? UpdatedAt { get; init; }
+        public int uid { get; init; }
+        public string? Name { get; init; }
+        public string? Logo { get; init; }
+        public string? Desc { get; init; }
+        public string? Source { get; init; }
+        public string? Dest { get; init; }
+        public int Members { get; init; }
+        public string? Game { get; init; }
+        public string? License { get; init; }
+        public float ActiveLevel { get; init; }
+        public int Stage { get; init; }
+        public int Privacy { get; init; }
+        public int Download { get; init; }
+        public int IssueMode { get; init; }
+        public int ReviewMode { get; init; }
+        public int JoinMode { get; init; }
+        public ExtraInfo? Extra { get; init; }
+        public StatInfo? Stats { get; init; }
+        public string[]? RelatedGames { get; init; }
+        public bool IsPrivate { get; init; }
+        public string? GameName { get; init; }
+        public FormatInfo? Formats { get; init; }
     }
 
-    public class ParatranzProjectRequest
+    public record ParatranzProjectRequest
     {
-        public string? name { get; set; }
-        public string? logo { get; set; }
-        public string? desc { get; set; }
-        public string? source { get; set; }
-        public string? dest { get; set; }
-        public string? game { get; set; }
-        public int privacy { get; set; }
-        public int download { get; set; }
-        public int issueMode { get; set; }
-        public int reviewMode { get; set; }
-        public int joinMode { get; set; }
+        public string? Name { get; init; }
+        public string? Logo { get; init; }
+        public string? Desc { get; init; }
+        public string? Source { get; init; }
+        public string? Dest { get; init; }
+        public string? Game { get; init; }
+        public int Privacy { get; init; }
+        public int Download { get; init; }
+        public int IssueMode { get; init; }
+        public int ReviewMode { get; init; }
+        public int JoinMode { get; init; }
     }
 }

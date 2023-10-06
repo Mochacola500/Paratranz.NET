@@ -30,11 +30,11 @@ namespace ParatranzAPI
 
     public record ParatranzStringRequest
     {
-        public string? Key { get; set; }
-        public string? Original { get; set; }
-        public string? Translation { get; set; }
-        public int File { get; set; }
-        public int Stage { get; set; }
-        public string? Context { get; set; }
+        public string? Key { get; init; }
+        public string? Original { get; init; }
+        public string? Translation { get; init; }
+        public int File { get; init; }
+        public int Stage { get; init; }
+        public string? Context { get; init; }
     }
 }
