@@ -4,7 +4,7 @@ namespace ParatranzAPI
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzString?> AddStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
+        public Task<ParatranzString?> UpdateStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "strings", stringId);
 

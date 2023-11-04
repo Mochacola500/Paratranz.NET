@@ -6,7 +6,7 @@ namespace ParatranzAPI
         public int Page { get; init; }
         public int PageSize { get; init; }
         public int RowCount { get; init; }
-        public ParatranzString[]? Result { get; init; }
+        public ParatranzString[]? Results { get; init; }
     }
 
     public record ParatranzString
@@ -24,12 +24,10 @@ namespace ParatranzAPI
         public string? Key { get; init; }
         public string? Original { get; init; }
         public string? Translation { get; init; }
-        public FileInfo? File { get; init; }
+        //public FileInfo? File { get; init; }
         public int Stage { get; init; }
         public int Project { get; init; }
-        public int uid { get; init; }
         public string? Context { get; init; }
-        public string? Extra { get; init; }
         public int Words { get; init; }
         public int Version { get; init; }
         public int FileId { get; init; }
