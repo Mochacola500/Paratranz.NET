@@ -3,9 +3,9 @@ namespace ParatranzAPI
 {
     public enum OperationType
     {
-        translate,
-        edit,
-        review
+        Translate,
+        Edit,
+        Review
     }
 
     public record ParatranzScorePage
