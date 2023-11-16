@@ -1,7 +1,7 @@
 ﻿using Flurl;
 using System.Text.Json.Nodes;
 
-namespace ParatranzAPI
+namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {
@@ -12,23 +12,12 @@ namespace ParatranzAPI
             return GetAsync<ParatranzFile>(url, token);
         }
 
-        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, byte[] bytes, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
+            var file = Convert.ToBase64String(bytes);
 
             return PostAsync<string, ParatranzFile>(url, file, token);
-        }
-
-        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, string file, string path, CancellationToken token = default)
-        {
-            var url = "projects".AppendPathSegments(projectId, "files", fileId, "translation");
-            var json = new JsonObject
-            {
-                ["file"] = file,
-                ["path"] = path,
-            };
-
-            return PostAsync<JsonObject, ParatranzFile>(url, json, token);
         }
 
         public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token = default)

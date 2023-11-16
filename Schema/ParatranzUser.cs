@@ -1,6 +1,6 @@
 ﻿using Flurl;
 
-namespace ParatranzAPI
+namespace Paratranz.NET
 {
     public record ParatranzUser
     {

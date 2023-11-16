@@ -1,7 +1,7 @@
 ﻿using Flurl;
 using System.Text.Json.Nodes;
 
-namespace ParatranzAPI
+namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {

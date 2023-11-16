@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Net;
 using Flurl;
 
-namespace ParatranzAPI
+namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {

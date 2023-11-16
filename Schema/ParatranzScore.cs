@@ -1,5 +1,5 @@
 ﻿
-namespace ParatranzAPI
+namespace Paratranz.NET
 {
     public enum OperationType
     {
