@@ -41,6 +41,14 @@ namespace Paratranz.NET
             return await res.Content.ReadFromJsonAsync<TReturn>(options: null, token);
         }
 
+        public async Task<TReturn?> PostAsync<TReturn>(Url relativeUrl, HttpContent? content, CancellationToken token)
+        {
+            var res = await m_Client.PostAsync(relativeUrl, content, token);
+            res.EnsureSuccessStatusCode();
+
+            return await res.Content.ReadFromJsonAsync<TReturn>(options: null, token);
+        }
+
         protected async Task<TReturn?> PostAsync<TBody, TReturn>(Url relativeUrl, TBody? body, CancellationToken token)
         {
             var res = await m_Client.PostAsJsonAsync(relativeUrl, body, token);

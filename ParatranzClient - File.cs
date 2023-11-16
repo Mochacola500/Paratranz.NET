@@ -1,5 +1,6 @@
 ﻿using Flurl;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
@@ -13,25 +14,29 @@ namespace Paratranz.NET
             return GetAsync<ParatranzFile>(url, token);
         }
 
-        public Task<ParatranzFile?> AddFileAsync(int projectId, byte[] file, string path, CancellationToken token = default)
+        public Task<ParatranzFile?> AddFileAsync(int projectId, string file, string path, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
-            var fileBase64 = Convert.ToBase64String(file);
-            var json = new JsonObject
+            var bytes = File.ReadAllBytes(file);
+            var content = new MultipartFormDataContent()
             {
-                ["file"] = fileBase64,
-                ["path"] = path,
+                { new ByteArrayContent(bytes), "file", Path.GetFileName(file) },
+                { new StringContent(path), "path" }
             };
 
-            return PostAsync<JsonObject, ParatranzFile>(url, json, token);
+            return PostAsync<ParatranzFile>(url, content, token);
         }
 
-        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, byte[] file, CancellationToken token = default)
+
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
-            var fileBase64 = Convert.ToBase64String(file);
-
-            return PostAsync<string, ParatranzFile>(url, fileBase64, token);
+            var bytes = File.ReadAllBytes(file);
+            var content = new MultipartFormDataContent()
+            {
+                { new ByteArrayContent(bytes), "file", Path.GetFileName(file) }
+            };
+            return PostAsync<ParatranzFile>(url, content, token);
         }
 
         public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token = default)
