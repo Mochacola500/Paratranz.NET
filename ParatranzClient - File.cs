@@ -1,4 +1,5 @@
 ﻿using Flurl;
+using System.IO;
 using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
@@ -12,12 +13,25 @@ namespace Paratranz.NET
             return GetAsync<ParatranzFile>(url, token);
         }
 
-        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, byte[] bytes, CancellationToken token = default)
+        public Task<ParatranzFile?> AddFileAsync(int projectId, byte[] file, string path, CancellationToken token = default)
+        {
+            var url = "projects".AppendPathSegments(projectId, "files");
+            var fileBase64 = Convert.ToBase64String(file);
+            var json = new JsonObject
+            {
+                ["file"] = fileBase64,
+                ["path"] = path,
+            };
+
+            return PostAsync<JsonObject, ParatranzFile>(url, json, token);
+        }
+
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, byte[] file, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
-            var file = Convert.ToBase64String(bytes);
+            var fileBase64 = Convert.ToBase64String(file);
 
-            return PostAsync<string, ParatranzFile>(url, file, token);
+            return PostAsync<string, ParatranzFile>(url, fileBase64, token);
         }
 
         public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token = default)
