@@ -12,6 +12,28 @@ namespace Paratranz.NET
             return GetAsync<ParatranzFile>(url, token);
         }
 
+        public Task<ParatranzFile?> AddFileAsync(int projectId, string fileName, byte[] bytes, string path, CancellationToken token = default)
+        {
+            var url = "projects".AppendPathSegments(projectId, "files");
+            var content = new MultipartFormDataContent()
+            {
+                { new ByteArrayContent(bytes), "file", fileName },
+                { new StringContent(path), "path" }
+            };
+
+            return PostAsync<ParatranzFile>(url, content, token);
+        }
+
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string fileName, byte[] bytes, CancellationToken token = default)
+        {
+            var url = "projects".AppendPathSegments(projectId, "files", fileId);
+            var content = new MultipartFormDataContent()
+            {
+                { new ByteArrayContent(bytes), "file", fileName }
+            };
+            return PostAsync<ParatranzFile>(url, content, token);
+        }
+
         public Task<ParatranzFile?> AddFileAsync(int projectId, string file, string path, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
@@ -24,7 +46,6 @@ namespace Paratranz.NET
 
             return PostAsync<ParatranzFile>(url, content, token);
         }
-
 
         public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
         {
