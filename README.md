@@ -11,7 +11,6 @@ A client library for Paratranz API
 Create a client
 
 ```cs
-string apiToken = "your API Token";
 using var client = new ParatranzClient(apiToken);
 ```
 
@@ -47,7 +46,7 @@ Stream downloadStream = await client.DownloadArtifactAsync(projectId);
 
 using (var fs = File.Open(download path...))
 {
-  downloadStream.CopyTo(fs);
+    downloadStream.CopyTo(fs);
 }
 ```
 
@@ -64,6 +63,6 @@ var issues = await client.GetissuePageAsync(projectId, IssuesStatus.Discussion);
 
 foreach (var issue in issues.Results)
 {
-  Console.WriteLine(issue.Title);
+    Console.WriteLine(issue.Title);
 }
 ```
