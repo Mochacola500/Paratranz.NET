@@ -67,5 +67,3 @@ foreach (var issue in issues.Results)
   Console.WriteLine(issue.Title);
 }
 ```
-
-**and More...**
