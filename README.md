@@ -11,7 +11,6 @@ A client library for Paratranz API
 Create a client
 
 ```cs
-string apiToken = "your API Token";
 using var client = new ParatranzClient(apiToken);
 ```
 
@@ -39,6 +38,21 @@ Console.WriteLine(result.Translation);
 await client.DeleteStringAsync(projectId, stringId);
 ```
 
+Project
+
+```cs
+var project = await client.CreateProjectAsync(projectId):
+await client.DeleteProjectAsync(projectId);
+```
+
+History
+
+```cs
+var userHistory = await client.GetUserHistoryAsync(projectId, TranslateHistoryType.text, uid, tid);
+var fileHistory = await client.GeFiletHistoryAsync(projectId, fileId, FileHistoryType.create);
+```
+
+
 Artifact
 
 ```cs
@@ -47,7 +61,7 @@ Stream downloadStream = await client.DownloadArtifactAsync(projectId);
 
 using (var fs = File.Open(download path...))
 {
-  downloadStream.CopyTo(fs);
+    downloadStream.CopyTo(fs);
 }
 ```
 
@@ -55,6 +69,12 @@ Mail
 
 ```cs
 var mails = await client.GetMailsAsync(userId);
+
+foreach (var mail in mails)
+{
+    Console.WriteLine($"User:{mail.FromUser.UserName}");
+    Console.WriteLine($"Content:{mail.Content}");
+}
 ```
 
 Issue
@@ -64,8 +84,19 @@ var issues = await client.GetissuePageAsync(projectId, IssuesStatus.Discussion);
 
 foreach (var issue in issues.Results)
 {
-  Console.WriteLine(issue.Title);
+    Console.WriteLine(issue.Title);
 }
 ```
 
-and More...
+Score
+
+```cs
+var scores = await client.GetScorePageAsync(projectId, uid, OperationType.Translate, start, end);
+
+foreach (var score in scores.Results)
+{
+    Console.WriteLine($"User: {score.User.UserName}");
+    Console.WriteLine($"Point: {score.Value}"):
+}
+```
+
