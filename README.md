@@ -38,6 +38,21 @@ Console.WriteLine(result.Translation);
 await client.DeleteStringAsync(projectId, stringId);
 ```
 
+Project
+
+```cs
+var project = await client.CreateProjectAsync(projectId):
+await client.DeleteProjectAsync(projectId);
+```
+
+History
+
+```cs
+var userHistory = await client.GetUserHistoryAsync(projectId, TranslateHistoryType.text, uid, tid);
+var fileHistory = await client.GeFiletHistoryAsync(projectId, fileId, FileHistoryType.create);
+```
+
+
 Artifact
 
 ```cs
@@ -54,6 +69,12 @@ Mail
 
 ```cs
 var mails = await client.GetMailsAsync(userId);
+
+foreach (var mail in mails)
+{
+    Console.WriteLine($"User:{mail.FromUser.UserName}");
+    Console.WriteLine($"Content:{mail.Content}");
+}
 ```
 
 Issue
@@ -66,3 +87,16 @@ foreach (var issue in issues.Results)
     Console.WriteLine(issue.Title);
 }
 ```
+
+Score
+
+```cs
+var scores = await client.GetScorePageAsync(projectId, uid, OperationType.Translate, start, end);
+
+foreach (var score in scores.Results)
+{
+    Console.WriteLine($"User: {score.User.UserName}");
+    Console.WriteLine($"Point: {score.Value}"):
+}
+```
+
