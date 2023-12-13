@@ -14,7 +14,7 @@ namespace Paratranz.NET
         public int PageSize { get; init; }
         public int RowCount { get; init; }
         public int PageCount { get; init; }
-        public ParatranzScore[]? results { get; init; }
+        public ParatranzScore[]? Results { get; init; }
     }
 
     public record ParatranzScore
