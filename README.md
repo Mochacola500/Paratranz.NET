@@ -59,7 +59,7 @@ Artifact
 var buildInfo = await client.BuildArtifactAsync(projectId);
 Stream downloadStream = await client.DownloadArtifactAsync(projectId);
 
-using (var fs = File.Open(download path...))
+using (var fs = File.Open(savePath))
 {
     downloadStream.CopyTo(fs);
 }
