@@ -30,7 +30,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzProjectRequest, ParatranzProject>("projects", request, token);
         }
 
-        public Task<ParatranzProjectPage?> GetProjectPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzProject>?> GetProjectPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var query = new
             {
@@ -39,7 +39,7 @@ namespace Paratranz.NET
             };
             var url = "projects".SetQueryParams(query);
 
-            return GetAsync<ParatranzProjectPage>(url, token);
+            return GetAsync<ParatranzPage<ParatranzProject>>(url, token);
         }
     }
 }

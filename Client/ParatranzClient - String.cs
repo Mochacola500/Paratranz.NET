@@ -39,7 +39,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzStringRequest, ParatranzString>(url, body, token);
         }
 
-        public Task<ParatranzStringPage?> GetStringPageAsync(int projectId, int file, int stage, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzString>?> GetStringPageAsync(int projectId, int file, int stage, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var query = new
             {
@@ -52,7 +52,7 @@ namespace Paratranz.NET
                 .AppendPathSegments(projectId, "strings")
                 .SetQueryParams(query);
 
-            return GetAsync<ParatranzStringPage>(url, token);
+            return GetAsync<ParatranzPage<ParatranzString>>(url, token);
         }
     }
 }

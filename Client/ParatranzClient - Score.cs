@@ -4,7 +4,7 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzScorePage?> GetScorePageAsync(int projectId, int uid, OperationType type, DateTime? start, DateTime? end, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzScore>?> GetScorePageAsync(int projectId, int uid, ScoreType type, DateTime? start, DateTime? end, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var type_str = type.ToString();
             var query = new
@@ -20,7 +20,7 @@ namespace Paratranz.NET
                 .AppendPathSegments(projectId, "scores")
                 .SetQueryParams(query);
 
-            return GetAsync<ParatranzScorePage>(url, token);
+            return GetAsync<ParatranzPage<ParatranzScore>>(url, token);
         }
     }
 }

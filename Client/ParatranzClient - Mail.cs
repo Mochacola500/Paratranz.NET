@@ -4,7 +4,7 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzMailPage?> GetMailPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzMail>?> GetMailPageAsync(int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var query = new
             {
@@ -13,7 +13,7 @@ namespace Paratranz.NET
             };
             var url = "mails".SetQueryParams(query);
 
-            return GetAsync<ParatranzMailPage>(url, token);
+            return GetAsync<ParatranzPage<ParatranzMail>>(url, token);
         }
 
         public Task<ParatranzMail[]?> GetMailsAsync(int userId, CancellationToken token = default)

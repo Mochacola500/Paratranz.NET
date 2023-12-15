@@ -7,17 +7,6 @@ namespace Paratranz.NET
         Closed = 1,
     }
 
-    public record ParatranzIssuePage
-    {
-        public int Page { get; init; }
-        public int PageSize { get; init; }
-        public int RowCount { get; init; }
-        public int PageCount { get; init; }
-        public int OpenCount { get; init; }
-        public int ClosedCount { get; init; }
-        public ParatranzIssue[]? Results { get; init; }
-    }
-
     public record ParatranzIssue
     {
         public int Id { get; init; }
@@ -40,7 +29,6 @@ namespace Paratranz.NET
         public int Id { get; init; }
         public DateTime? CreateAt { get; init; }
         public int uid { get; init; }
-        //public string? Type { get; init; }
         public int tid { get; init; }
         public IssuesStatus Status { get; init; }
     }

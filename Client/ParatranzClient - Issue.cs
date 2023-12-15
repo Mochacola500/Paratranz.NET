@@ -5,7 +5,7 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient : IDisposable
     {
-        public Task<ParatranzIssuePage?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzIssue>?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token = default)
         {
             var query = new
             {
@@ -15,7 +15,7 @@ namespace Paratranz.NET
                 .AppendPathSegments(projectId, "issues")
                 .SetQueryParams(query);
 
-            return GetAsync<ParatranzIssuePage>(url, token);
+            return GetAsync<ParatranzPage<ParatranzIssue>>(url, token);
         }
 
         public Task<ParatranzIssue?> CreateIssueAsync(int projectId, string title, string content, CancellationToken token = default)

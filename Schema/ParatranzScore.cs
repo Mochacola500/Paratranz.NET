@@ -1,20 +1,11 @@
 ﻿
 namespace Paratranz.NET
 {
-    public enum OperationType
+    public enum ScoreType
     {
         Translate,
         Edit,
         Review
-    }
-
-    public record ParatranzScorePage
-    {
-        public int Page { get; init; }
-        public int PageSize { get; init; }
-        public int RowCount { get; init; }
-        public int PageCount { get; init; }
-        public ParatranzScore[]? Results { get; init; }
     }
 
     public record ParatranzScore

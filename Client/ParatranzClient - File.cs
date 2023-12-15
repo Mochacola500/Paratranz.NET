@@ -65,7 +65,7 @@ namespace Paratranz.NET
             return GetAsync<ParatranzFile[]>(url, token);
         }
 
-        public Task<ParatranzFilePage?> GetFilePageAsync(int projectId, string file, string path, CancellationToken token = default)
+        public Task<ParatranzFileInfo?> GetFilePageAsync(int projectId, string file, string path, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
             var json = new JsonObject
@@ -74,7 +74,7 @@ namespace Paratranz.NET
                 ["path"] = path,
             };
 
-            return PostAsync<JsonObject, ParatranzFilePage>(url, json, token);
+            return PostAsync<JsonObject, ParatranzFileInfo>(url, json, token);
         }
 
         public Task<bool> DeleteFileAsync(int projectId, int fileId, CancellationToken token = default)

@@ -1,15 +1,6 @@
 ﻿
 namespace Paratranz.NET
 {
-    public record ParatranzMailPage
-    {
-        public int Page { get; init; }
-        public int PageSize { get; init; }
-        public int RowCount { get; init; }
-        public int PageCount { get; init; }
-        public ParatranzMail[]? Results { get; init; }
-    }
-
     public record ParatranzMail
     {
         public int Id { get; init; }

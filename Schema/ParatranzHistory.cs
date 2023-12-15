@@ -3,25 +3,16 @@ namespace Paratranz.NET
 {
     public enum TranslateHistoryType
     {
-        text,
-        import,
-        comment
+        Text,
+        Import,
+        Comment
     }
 
     public enum FileHistoryType
     {
-        create,
-        update,
-        import
-    }
-
-    public record ParatranzHistoryPage
-    {
-        public int Page { get; init; }
-        public int PageSize { get; init; }
-        public int RowCount { get; init; }
-        public int PageCount { get; init; }
-        public ParatranzHistory[]? Results { get; init; }
+        Create,
+        Update,
+        Import
     }
 
     public record ParatranzHistory
@@ -34,7 +25,7 @@ namespace Paratranz.NET
         public string? From { get; init; }
         public string? To { get; init; }
         public ParatranzTranslation? Target { get; init; }
-        public OperationType? Operation { get; init; }
+        public ScoreType? Operation { get; init; }
         public ParatranzUser? User { get; init; }
         public ParatranzString? Related { get; init; }
     }

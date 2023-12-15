@@ -1,7 +1,7 @@
 ﻿
 namespace Paratranz.NET
 {
-    public record ParatranzFilePage
+    public record ParatranzFileInfo
     {
         public ParatranzFile? File { get; init; }
         public ParatranzFileRevision? Revision { get; init; }

@@ -1,14 +1,6 @@
 ﻿
 namespace Paratranz.NET
 {
-    public record ParatranzProjectPage
-    {
-        public int Page { get; init; }
-        public int PageCount { get; init; }
-        public int RowCount { get; init; }
-        public ParatranzProject[]? Results { get; init; }
-    }
-
     public record ParatranzProject
     {
         public record FormatInfo
