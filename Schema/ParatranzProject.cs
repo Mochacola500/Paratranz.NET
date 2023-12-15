@@ -69,6 +69,24 @@ namespace Paratranz.NET
         public bool IsPrivate { get; init; }
         public string? GameName { get; init; }
         public FormatInfo? Formats { get; init; }
+
+        public ParatranzProjectRequest CreateRequest()
+        {
+            return new ParatranzProjectRequest()
+            {
+                Name = Name,
+                Logo = Logo,
+                Desc = Desc,
+                Source = Source,
+                Dest = Dest,
+                Game = Game,
+                Privacy = Privacy,
+                Download = Download,
+                IssueMode = IssueMode,
+                ReviewMode = ReviewMode,
+                JoinMode = JoinMode,
+            };
+        }
     }
 
     public record ParatranzProjectRequest
