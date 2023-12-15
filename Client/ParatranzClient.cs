@@ -1,4 +1,6 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Net;
 using Flurl;
@@ -21,9 +23,17 @@ namespace Paratranz.NET
             set => m_Client.MaxResponseContentBufferSize = value;
         }
 
-        public ParatranzClient(string apiToken)
+        public ParatranzClient(string apiToken, string? ssl = null)
         {
-            m_Client = new HttpClient();
+            var handler = new HttpClientHandler();
+            if (ssl != null)
+            {
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.SslProtocols = SslProtocols.Tls12;
+                handler.ClientCertificates.Add(new X509Certificate(ssl));
+            }
+
+            m_Client = new HttpClient(handler);
             m_Client.BaseAddress = new Uri("https://paratranz.cn/api/");
             m_Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(apiToken);
         }
