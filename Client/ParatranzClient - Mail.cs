@@ -16,7 +16,7 @@ namespace Paratranz.NET
             return GetAsync<ParatranzPage<ParatranzMail>>(url, token);
         }
 
-        public Task<ParatranzMail[]?> GetMailsAsync(int userId, CancellationToken token = default)
+        public Task<ParatranzMail[]?> GetMailsAsync(int userId, CancellationToken token)
         {
             var url = "mails".AppendPathSegments("conversations", userId);
 
