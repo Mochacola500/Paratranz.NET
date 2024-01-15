@@ -7,7 +7,7 @@ A client library for Paratranz API
 **Document:** [ParaTranz OpenAPI][OpenAPILink]
 
 ## Requirement
-- `Flurl`
+`Flurl`
 
 ## Usage
 
