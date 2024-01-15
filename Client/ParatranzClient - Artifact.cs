@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzArtifact?> GetArtifactAsync(int projectId, CancellationToken token = default)
         {

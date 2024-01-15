@@ -2,18 +2,18 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzPage<ParatranzHistory>?> GetUserHistoryAsync(int project, TranslateHistoryType type, int uid, int tid, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var query = new
             {
-                project = project,
-                uid = uid,
-                tid = tid,
+                project,
+                uid,
+                tid,
                 type = type.ToString(),
-                page = page,
-                pageSize = pageSize
+                page,
+                pageSize
             };
             var url = "history".SetQueryParams(query);
 
@@ -24,10 +24,10 @@ namespace Paratranz.NET
         {
             var query = new
             {
-                file = file,
+                file,
                 type = type.ToString(),
-                page = page,
-                pageSize = pageSize
+                page,
+                pageSize
             };
             var url = "projects"
                 .AppendPathSegments(projectId, "files", "revisions")

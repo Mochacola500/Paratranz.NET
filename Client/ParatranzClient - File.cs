@@ -3,7 +3,7 @@ using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
         {
@@ -15,7 +15,7 @@ namespace Paratranz.NET
         public Task<ParatranzFile?> AddFileAsync(int projectId, string fileName, byte[] bytes, string path, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
-            var content = new MultipartFormDataContent()
+            var content = new MultipartFormDataContent
             {
                 { new ByteArrayContent(bytes), "file", fileName },
                 { new StringContent(path), "path" }
@@ -27,7 +27,7 @@ namespace Paratranz.NET
         public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string fileName, byte[] bytes, CancellationToken token = default)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
-            var content = new MultipartFormDataContent()
+            var content = new MultipartFormDataContent
             {
                 { new ByteArrayContent(bytes), "file", fileName }
             };
@@ -38,7 +38,7 @@ namespace Paratranz.NET
         {
             var url = "projects".AppendPathSegments(projectId, "files");
             var bytes = File.ReadAllBytes(file);
-            var content = new MultipartFormDataContent()
+            var content = new MultipartFormDataContent
             {
                 { new ByteArrayContent(bytes), "file", Path.GetFileName(file) },
                 { new StringContent(path), "path" }
@@ -51,7 +51,7 @@ namespace Paratranz.NET
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
             var bytes = File.ReadAllBytes(file);
-            var content = new MultipartFormDataContent()
+            var content = new MultipartFormDataContent
             {
                 { new ByteArrayContent(bytes), "file", Path.GetFileName(file) }
             };

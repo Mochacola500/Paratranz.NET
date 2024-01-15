@@ -3,13 +3,13 @@ using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzPage<ParatranzIssue>?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token = default)
         {
             var query = new
             {
-                status = status,
+                status,
             };
             var url = "projects"
                 .AppendPathSegments(projectId, "issues")

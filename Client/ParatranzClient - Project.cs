@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzProject?> CreateProjectAsync(int projectId, ParatranzProjectRequest request, CancellationToken token = default)
         {
@@ -34,8 +34,8 @@ namespace Paratranz.NET
         {
             var query = new
             {
-                page = page,
-                pageSize = pageSize,
+                page,
+                pageSize,
             };
             var url = "projects".SetQueryParams(query);
 

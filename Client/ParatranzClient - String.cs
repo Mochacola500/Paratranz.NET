@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzString?> UpdateStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
         {
@@ -29,8 +29,8 @@ namespace Paratranz.NET
         {
             var query = new
             {
-                page = page,
-                pageSize = pageSize
+                page,
+                pageSize
             };
             var url = "projects"
                 .AppendPathSegments(projectId, "strings")
@@ -43,10 +43,10 @@ namespace Paratranz.NET
         {
             var query = new
             {
-                file = file,
-                stage = stage,
-                page = page,
-                pageSize = pageSize
+                file,
+                stage,
+                page,
+                pageSize
             };
             var url = "projects"
                 .AppendPathSegments(projectId, "strings")

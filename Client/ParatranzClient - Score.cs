@@ -2,19 +2,19 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient
+    public partial class ParatranzClient // NOSONAR
     {
         public Task<ParatranzPage<ParatranzScore>?> GetScorePageAsync(int projectId, int uid, ScoreType type, DateTime? start, DateTime? end, int page = 1, int pageSize = 50, CancellationToken token = default)
         {
             var type_str = type.ToString();
             var query = new
             {
-                page = page,
-                pageSize = pageSize,
-                uid = uid,
+                page,
+                pageSize,
+                uid,
                 operation = type_str,
-                start = start,
-                end = end
+                start,
+                end
             };
             var url = "projects"
                 .AppendPathSegments(projectId, "scores")
