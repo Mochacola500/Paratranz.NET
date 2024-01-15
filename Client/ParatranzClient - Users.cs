@@ -5,14 +5,14 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient //NOSONAR
     {
-        public Task<ParatranzUser?> GetUserAsync(int userId, CancellationToken token = default)
+        public Task<ParatranzUser?> GetUserAsync(int userId, CancellationToken token)
         {
             var url = "users".AppendPathSegments(userId);
 
             return GetAsync<ParatranzUser>(url, token);
         }
 
-        public Task<ParatranzUser?> UpdateUserAsync(int userId, string nickname, string bio, string avatar, CancellationToken token = default)
+        public Task<ParatranzUser?> UpdateUserAsync(int userId, string nickname, string bio, string avatar, CancellationToken token)
         {
             var url = "users".AppendPathSegments(userId);
             var json = new JsonObject

@@ -23,7 +23,12 @@ namespace Paratranz.NET
             set => m_Client.MaxResponseContentBufferSize = value;
         }
 
-        public ParatranzClient(string apiToken, string? ssl = null)
+        public ParatranzClient(string apiToken) : this(apiToken, null)
+        {
+
+        }
+
+        public ParatranzClient(string apiToken, string? ssl)
         {
             var handler = new HttpClientHandler();
             if (ssl != null)

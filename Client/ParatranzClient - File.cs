@@ -5,14 +5,14 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient //NOSONAR
     {
-        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
 
             return GetAsync<ParatranzFile>(url, token);
         }
 
-        public Task<ParatranzFile?> AddFileAsync(int projectId, string fileName, byte[] bytes, string path, CancellationToken token = default)
+        public Task<ParatranzFile?> AddFileAsync(int projectId, string fileName, byte[] bytes, string path, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
             var content = new MultipartFormDataContent
@@ -24,7 +24,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzFile>(url, content, token);
         }
 
-        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string fileName, byte[] bytes, CancellationToken token = default)
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string fileName, byte[] bytes, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
             var content = new MultipartFormDataContent
@@ -34,7 +34,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzFile>(url, content, token);
         }
 
-        public Task<ParatranzFile?> AddFileAsync(int projectId, string file, string path, CancellationToken token = default)
+        public Task<ParatranzFile?> AddFileAsync(int projectId, string file, string path, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
             var bytes = File.ReadAllBytes(file);
@@ -47,7 +47,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzFile>(url, content, token);
         }
 
-        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string file, CancellationToken token = default)
+        public Task<ParatranzFile?> UpdateFileAsync(int projectId, int fileId, string file, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
             var bytes = File.ReadAllBytes(file);
@@ -58,14 +58,14 @@ namespace Paratranz.NET
             return PostAsync<ParatranzFile>(url, content, token);
         }
 
-        public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token = default)
+        public Task<ParatranzFile[]?> GetFilesAsync(int projectId, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
 
             return GetAsync<ParatranzFile[]>(url, token);
         }
 
-        public Task<ParatranzFileInfo?> GetFilePageAsync(int projectId, string file, string path, CancellationToken token = default)
+        public Task<ParatranzFileInfo?> GetFilePageAsync(int projectId, string file, string path, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files");
             var json = new JsonObject
@@ -77,14 +77,14 @@ namespace Paratranz.NET
             return PostAsync<JsonObject, ParatranzFileInfo>(url, json, token);
         }
 
-        public Task<bool> DeleteFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<bool> DeleteFileAsync(int projectId, int fileId, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId);
 
             return DeleteAsync(url, token);
         }
 
-        public Task<Stream> DownloadFileAsync(int projectId, int fileId, CancellationToken token = default)
+        public Task<Stream> DownloadFileAsync(int projectId, int fileId, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "files", fileId, "translation");
 

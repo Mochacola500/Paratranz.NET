@@ -4,7 +4,7 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient //NOSONAR
     {
-        public Task<ParatranzString?> UpdateStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
+        public Task<ParatranzString?> UpdateStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "strings", stringId);
 
@@ -25,7 +25,7 @@ namespace Paratranz.NET
             return GetAsync<ParatranzString>(url, token);
         }
 
-        public Task<ParatranzString?> GetStringAsync(int projectId, ParatranzStringRequest body, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzString?> GetStringAsync(int projectId, ParatranzStringRequest body, int page, int pageSize, CancellationToken token)
         {
             var query = new
             {
@@ -39,7 +39,7 @@ namespace Paratranz.NET
             return PostAsync<ParatranzStringRequest, ParatranzString>(url, body, token);
         }
 
-        public Task<ParatranzPage<ParatranzString>?> GetStringPageAsync(int projectId, int file, int stage, int page = 1, int pageSize = 50, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzString>?> GetStringPageAsync(int projectId, int file, int stage, int page, int pageSize, CancellationToken token)
         {
             var query = new
             {

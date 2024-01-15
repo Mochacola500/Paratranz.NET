@@ -5,7 +5,7 @@ namespace Paratranz.NET
 {
     public partial class ParatranzClient //NOSONAR
     {
-        public Task<ParatranzPage<ParatranzIssue>?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token = default)
+        public Task<ParatranzPage<ParatranzIssue>?> GetIssuePageAsync(int projectId, IssuesStatus status, CancellationToken token)
         {
             var query = new
             {
@@ -18,7 +18,7 @@ namespace Paratranz.NET
             return GetAsync<ParatranzPage<ParatranzIssue>>(url, token);
         }
 
-        public Task<ParatranzIssue?> CreateIssueAsync(int projectId, string title, string content, CancellationToken token = default)
+        public Task<ParatranzIssue?> CreateIssueAsync(int projectId, string title, string content, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "issues");
             var json = new JsonObject
@@ -30,7 +30,7 @@ namespace Paratranz.NET
             return PostAsync<JsonObject, ParatranzIssue>(url, json, token);
         }
 
-        public Task<ParatranzIssue?> UpdateIssueAsync(int projectId, string issueId, string title, string content, IssuesStatus status, CancellationToken token = default)
+        public Task<ParatranzIssue?> UpdateIssueAsync(int projectId, string issueId, string title, string content, IssuesStatus status, CancellationToken token)
         {
             var status_int = (int)status;
             var url = "projects".AppendPathSegments(projectId, "issues", issueId);
@@ -44,7 +44,7 @@ namespace Paratranz.NET
             return PutAsync<JsonObject, ParatranzIssue>(url, json, token);
         }
 
-        public Task<bool> DeleteIssueAsync(int projectId, int issueId, CancellationToken token = default)
+        public Task<bool> DeleteIssueAsync(int projectId, int issueId, CancellationToken token)
         {
             var url = "projects".AppendPathSegments(projectId, "issues", issueId);
 
