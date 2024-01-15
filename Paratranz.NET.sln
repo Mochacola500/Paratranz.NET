@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paratranz.NET", "Paratranz.NET\Paratranz.NET.csproj", "{9A67F670-8092-404B-B8CA-E94384C57E86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A67F670-8092-404B-B8CA-E94384C57E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A67F670-8092-404B-B8CA-E94384C57E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A67F670-8092-404B-B8CA-E94384C57E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A67F670-8092-404B-B8CA-E94384C57E86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B038AE-6AE3-49B2-98FA-9D07A37734F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B038AE-6AE3-49B2-98FA-9D07A37734F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B038AE-6AE3-49B2-98FA-9D07A37734F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B038AE-6AE3-49B2-98FA-9D07A37734F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AA3B911-286E-4327-BB9D-407774C74244}
+	EndGlobalSection
+EndGlobal
