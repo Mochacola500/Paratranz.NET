@@ -72,7 +72,7 @@ namespace Paratranz.NET
 
         public ParatranzProjectRequest CreateRequest()
         {
-            return new ParatranzProjectRequest()
+            return new ParatranzProjectRequest
             {
                 Name = Name,
                 Logo = Logo,

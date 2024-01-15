@@ -18,7 +18,7 @@ namespace Paratranz.NET
 
         public ParatranzStringRequest CreateRequest(int file)
         {
-            return new ParatranzStringRequest()
+            return new ParatranzStringRequest
             {
                 Key = Key,
                 Original = Original,
