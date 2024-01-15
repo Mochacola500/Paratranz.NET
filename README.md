@@ -24,9 +24,7 @@ Console.WriteLine(user.UserName);
 var str = await client.GetStringAsync(projectId, stringId);
 Console.WriteLine(str.Translation);
 
-var request = new ParatranzStringRequest();
-request.Key = str.Key;
-request.Original = str.Original;
+var request = str.CreateRequest(fileId);
 request.Translation = "new text";
 
 var result = await client.UpdateStringAsync(projectId, stringId, request);
