@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public partial class ParatranzClient
     {
         public Task<ParatranzArtifact?> GetArtifactAsync(int projectId, CancellationToken token = default)
         {

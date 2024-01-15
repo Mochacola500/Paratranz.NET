@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public partial class ParatranzClient
     {
         public Task<ParatranzPage<ParatranzScore>?> GetScorePageAsync(int projectId, int uid, ScoreType type, DateTime? start, DateTime? end, int page = 1, int pageSize = 50, CancellationToken token = default)
         {

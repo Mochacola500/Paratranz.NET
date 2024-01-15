@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public partial class ParatranzClient
     {
         public Task<ParatranzPage<ParatranzHistory>?> GetUserHistoryAsync(int project, TranslateHistoryType type, int uid, int tid, int page = 1, int pageSize = 50, CancellationToken token = default)
         {

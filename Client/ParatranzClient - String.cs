@@ -2,7 +2,7 @@
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public partial class ParatranzClient
     {
         public Task<ParatranzString?> UpdateStringAsync(int projectId, int stringId, ParatranzStringRequest body, CancellationToken token = default)
         {
