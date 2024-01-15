@@ -3,7 +3,7 @@ using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient // NOSONAR
+    public partial class ParatranzClient //NOSONAR
     {
         public Task<ParatranzFile?> GetFileAsync(int projectId, int fileId, CancellationToken token = default)
         {

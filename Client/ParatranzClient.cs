@@ -7,7 +7,7 @@ using Flurl;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public partial class ParatranzClient : IDisposable //NOSONAR
     {
         readonly HttpClient m_Client;
 
