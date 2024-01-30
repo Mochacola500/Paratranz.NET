@@ -3,7 +3,7 @@ using System.Text.Json.Nodes;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient //NOSONAR
+    partial class ParatranzClient //NOSONAR
     {
         public Task<ParatranzUser?> GetUserAsync(int userId, CancellationToken token)
         {
