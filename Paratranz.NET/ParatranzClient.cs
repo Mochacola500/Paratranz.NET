@@ -8,12 +8,12 @@ using Flurl;
 
 namespace Paratranz.NET
 {
-    public partial class ParatranzClient : IDisposable
+    public class ParatranzClient : IDisposable
     {
         #region Implement
 
         readonly HttpClient m_Client;
-        bool m_Disposed = false;
+        bool m_Disposed;
 
         public TimeSpan TimeOut
         {
