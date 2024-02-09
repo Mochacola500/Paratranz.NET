@@ -1,20 +1,6 @@
 ﻿
 namespace Paratranz.NET
 {
-    public enum TranslateHistoryType
-    {
-        Text,
-        Import,
-        Comment
-    }
-
-    public enum FileHistoryType
-    {
-        Create,
-        Update,
-        Import
-    }
-
     public record ParatranzHistory
     {
         public int Id { get; init; }

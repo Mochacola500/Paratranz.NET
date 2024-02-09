@@ -1,13 +1,6 @@
 ﻿
 namespace Paratranz.NET
 {
-    public enum ScoreType
-    {
-        Translate,
-        Edit,
-        Review
-    }
-
     public record ParatranzScore
     {
         public int Id { get; init; }

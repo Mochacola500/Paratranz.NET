@@ -1,12 +1,6 @@
 ﻿
 namespace Paratranz.NET
 {
-    public enum IssuesStatus
-    {
-        Discussion = 0,
-        Closed = 1,
-    }
-
     public record ParatranzIssue
     {
         public int Id { get; init; }
