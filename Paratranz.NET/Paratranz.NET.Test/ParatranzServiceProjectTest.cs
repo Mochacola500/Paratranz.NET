@@ -109,7 +109,5 @@ namespace Paratranz.NET.Test
             var res = await Service.GetProjectAsync(projectId, default);
             Assert.IsNotNull(res, "projectId: {0}", projectId);
         }
-
-
     }
 }

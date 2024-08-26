@@ -1,4 +1,5 @@
-﻿namespace Paratranz.NET
+﻿
+namespace Paratranz.NET
 {
     public class S2C_ProjectResponse : Data_Project
     {

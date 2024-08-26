@@ -1,6 +1,4 @@
 ﻿
-using Paratranz.NET.Schema;
-
 namespace Paratranz.NET
 {
     public partial class ParatranzService
