@@ -8,7 +8,7 @@ namespace Paratranz.NET.Test
         public void AuthorizationTest()
         {
             var apiToken = Environment.GetEnvironmentVariable("API_TOKEN");
-            Assert.IsNotNull(apiToken);
+            Assert.IsNotNull(apiToken, "API_TOKEN: {0}", apiToken);
 
             try
             {
